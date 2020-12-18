@@ -109,6 +109,7 @@ Please refer to original [docs](https://github.com/hundredrabbits/Orca#operators
 - `` ` `` [**crow w/syn**(octave note level)](#crow):
 - `>` **g.write**(*x* *y* value): Sets grid led on bang.
 - `<` **g.read**(*x* *y*): Reads specific coordinates. If value > 6 outputs bang.
+- `(` **arc.read**(*enc*): Reads ARC encoder value 
 - `=` **OSC** (*path*;x;y..): Locks each consecutive eastwardly ports. `;` is delimeter for values.
 
 
