@@ -22,6 +22,7 @@
 -- @coollerue
 -- @linusschrab
 -- @frederickk
+-- @kkempes
 --
 -- llllllll.co/t/orca
 --
@@ -55,6 +56,7 @@ local VAL_LIST = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c
 local update_id
 local running = true
 local keyboard = hid.connect()
+local arc = arc.connect() 
 local g = grid.connect()
 local val_index, ops_index, notes_index = 1, 1, 1
 local key_pressed = {0, 0, 0}
@@ -461,6 +463,43 @@ function g.redraw()
   end
   g:refresh()
 end
+
+--- arc
+  arc:all(0);
+  for i = 1, 4 do arc:led(i, 1, 15); end
+  arc:refresh();
+  o1 = 0; o2 = 0; o3 = 0; o4 = 0
+function arc.delta(enc, offset)
+  if enc == 1 then  
+         o1 = (offset + o1) % 35
+         for i = 0, 63 do if i ~= o1 then arc:led(enc, i, 0) end end
+         arc:led(enc, o1, 15)
+         arc:refresh()
+  elseif enc == 2 then 
+         o2 = (offset + o2) % 35
+         for i = 0, 63 do if i ~= o2 then arc:led(enc, i, 0) end end
+         arc:led(enc, o2 , 15)
+         arc:refresh()
+  elseif enc == 3 then 
+         o3 = (offset + o3) % 35
+         for i= 0, 63 do if i ~= o3 then arc:led(enc, i, 0) end end
+         arc:led(enc, o3 , 15)
+         arc:refresh()
+  elseif enc == 4 then 
+         o4 = (offset + o4) % 35
+         for i = 0, 63 do if i ~= o4 then arc:led(enc, i, 0) end end
+         arc:led(enc, o4 , 15)
+         arc:refresh()
+        end
+end
+
+function arc_delta(enc)
+  if enc == 1 then return o1
+    elseif enc == 2 then return o2
+      elseif enc == 3 then return o3
+        elseif enc == 4 then return o4
+ end
+end 
 
 function orca:init_field(w, h)
   self.w = w
